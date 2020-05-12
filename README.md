@@ -1,0 +1,3 @@
+# MiniPlayground
+
+This is a compilation of mini projects created for fun...
