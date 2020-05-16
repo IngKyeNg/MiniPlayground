@@ -1,5 +1,7 @@
 package com.nik;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class InterpretSentence {
@@ -8,6 +10,7 @@ public class InterpretSentence {
         char[] alphabets = sentence.toLowerCase().toCharArray();
         int v = 0;
         int c = 0;
+        Map<Character, Integer> hashMap = new HashMap<Character, Integer>();
 
         for(int i = 0; i < alphabets.length ; i++){
             if(alphabets[i] == 'a' || alphabets[i] == 'e' || alphabets[i] == 'i' ||
@@ -16,13 +19,26 @@ public class InterpretSentence {
             }else if(alphabets[i] >= 'a' && alphabets[i] <= 'z'){
                 c += 1;
             }else{
-                System.out.println("This charcter [" + alphabets[i] + "] is a special characters");
+                if(hashMap.containsKey(alphabets[i])){
+                    int tmp = hashMap.get(alphabets[i]) + 1;
+                    hashMap.put(alphabets[i], tmp);
+                }else{
+                    hashMap.put(alphabets[i],1);
+                }
             }
         }
 
         System.out.println("The sentence above have \n" +
                 "Vowels : " + v + "\n" +
                 "Consonants : " + c);
+        hashMap.forEach((key, val) -> {
+            System.out.println("Special character [" + key + "] has appear " + val + " times.");
+        });
+    }
+
+    public static void reverseSentence(String sentence){
+        StringBuilder sb = new StringBuilder(sentence);
+        System.out.println("The reverser of the sentence is : [" + sb.reverse().toString() + "].");
     }
 
     public static void main(String[] args) {
@@ -31,8 +47,9 @@ public class InterpretSentence {
 
         Scanner scanner = new Scanner(System.in);
         String sentence = scanner.nextLine();
+        scanner.close();
 
         checkForVowelsAndConsonents(sentence);
-
+        reverseSentence(sentence);
     }
 }
